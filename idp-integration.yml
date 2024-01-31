@@ -1,0 +1,61 @@
+---
+- hosts: localhost
+  connection: local 
+  gather_facts: true
+  vars_files:
+    # required by portal checkpoint
+    - vars/main.yml
+    - vars/x-token.yml
+
+    # required by both
+    - vars/azure/azure.yml
+
+    # required by portal checkpoint
+    - vars/idp/idp.yml
+    - vars/idp/payloads/azure.yml
+
+    # required by azure
+    - vars/azure/payloads/token.yml
+    - vars/azure/payloads/instantiate.yml
+
+  tasks:
+
+    - name: Get token task
+      import_tasks: tasks/x-token.yml
+
+    # - name: Get Token MS Graph
+    #   import_tasks: tasks/azure/create-token.yml
+
+    # - name: Install Harmony Checkpoint
+    #   import_tasks: tasks/azure/instantiate.yml
+
+
+    - name: Request UUID Domain
+      import_tasks: tasks/idp/domain-validation.yml
+      when: IDPType == "azure"
+
+    - name: Validate Saml Record
+      import_tasks: tasks/idp/validate-saml.yml
+      when: IDPType == "azure"
+
+    - name: Domain Validation
+      import_tasks: tasks/idp/validate.yml
+      when: IDPType == "azure"
+
+    # - name: Get Certificate
+    #   import_tasks: tasks/idp/get-certificate-azure.yml
+    #   when: IDPType == "azure"
+
+    # - name: Install IDP Config SAML
+    #   import_tasks: tasks/idp/idp-config-saml.yml
+    #   when: IDPType == "azure"
+
+    # - name: Install IDP Azure
+    #   import_tasks: tasks/idp/idp-config.yml
+    #   when: IDPType == "azure"
+
+    
+
+    
+
+

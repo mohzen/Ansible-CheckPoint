@@ -1,0 +1,23 @@
+---
+- hosts: odo
+  become: yes
+  gather_facts: false
+  vars_files:
+    - vars/main.yml
+    - vars/x-token.yml
+    - vars/site-dtc.yml
+
+  tasks:
+    - name: Get token task
+      import_tasks: tasks/x-token.yml
+
+    - name: Get List Sites
+      import_tasks: tasks/get-sites-dtc.yml
+
+    - name: Stop Connector
+      import_tasks: tasks/stop-connector.yml
+
+    - name: Delete Sites
+      import_tasks: tasks/delete-site.yml
+
+

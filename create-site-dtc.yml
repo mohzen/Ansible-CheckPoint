@@ -1,0 +1,17 @@
+---
+- hosts: localhost
+  connection: local 
+  gather_facts: false
+  vars_files:
+    - vars/main.yml
+    - vars/x-token.yml
+    - vars/site-dtc.yml
+
+  tasks:
+    - name: Get token task
+      import_tasks: tasks/x-token.yml
+
+    - name: Create Sites
+      import_tasks: tasks/create-site-dtc.yml
+
+

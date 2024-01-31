@@ -1,0 +1,15 @@
+todo
+-----
+- add mobile phone number to harmony
+- add location playbook inside Users & device menu 
+- adding multiple subnet when create data dataCenter
+
+priority
+-----
+- site location id on create branch playbook use the variable name not id 
+- branch type new playbook
+
+
+Done 
+- list gateway branch office
+

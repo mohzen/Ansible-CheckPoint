@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  connection: local 
+  gather_facts: false
+  vars_files:
+    - vars/office365.yml
+
+  tasks:
+    - name: Get token task
+      import_tasks: tasks/azure/update-txt-record-office365.yml
+
+

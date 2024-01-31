@@ -1,0 +1,100 @@
+---
+- hosts: localhost
+  connection: local 
+  become: true
+  gather_facts: false
+  vars_files:
+    # required by portal checkpoint
+    - vars/main.yml
+    - vars/x-token.yml
+
+    # required by both
+    - vars/azure/azure.yml
+
+    # required by portal checkpoint
+    - vars/idp/idp.yml
+    - vars/idp/payloads/azure.yml
+
+    # required by azure
+    - vars/azure/payloads/token.yml
+    - vars/azure/payloads/users.yml
+    - vars/azure/payloads/groups.yml
+    - vars/azure/payloads/assign-user-group.yml
+    - vars/azure/payloads/instantiate.yml
+    - vars/azure/payloads/assign-user-app.yml
+    - vars/azure/payloads/sso.yml
+    - vars/azure/payloads/saml.yml
+    - vars/azure/payloads/group-claim-name.yml
+
+  tasks:
+
+    - name: Get Hiden Token Azure Portal
+      import_tasks: tasks/azure/get-hidden-token.yml
+
+    - name: Get Token MS Graph
+      import_tasks: tasks/azure/create-token.yml
+
+    - name: Install Harmony Checkpoint
+      import_tasks: tasks/azure/instantiate.yml
+
+    - name: Create User
+      import_tasks: tasks/azure/create-user.yml
+
+    - name: Create group
+      import_tasks: tasks/azure/create-group.yml
+
+    - name: Sleep to Wait azure Processing Our last Request in 60 second(s)
+      ansible.builtin.pause:
+        seconds: 60
+
+    - name: Assign User into Group
+      import_tasks: tasks/azure/assign-user-to-group.yml
+
+    - name: Assign User into Group
+      import_tasks: tasks/azure/assign-user-to-harmony.yml
+
+    - name: Enable SSO
+      import_tasks: tasks/azure/enable-sso.yml
+
+    - name: Set SAML URL
+      import_tasks: tasks/azure/set-saml-url.yml
+
+    - name: Generate Certificate
+      import_tasks: tasks/azure/gen-certificate.yml
+
+    - name: Groups Claim
+      import_tasks: tasks/azure/change-groups-claim-name.yml
+
+    - name: Update saml Groups Claim
+      import_tasks: tasks/azure/update-saml-groups-claim.yml
+
+    # portal checkpoint installation
+    - name: Get token task
+      import_tasks: tasks/x-token.yml
+
+    - name: Update Tenant Active
+      import_tasks: tasks/update-tenant-active.yml
+      when: IDPType == "azure"
+
+    - name: Request UUID Domain
+      import_tasks: tasks/idp/domain-validation.yml
+      when: IDPType == "azure"
+
+    - name: Update SAML URL
+      import_tasks: tasks/azure/set-saml-url.yml
+
+    - name: Domain Validation
+      import_tasks: tasks/idp/validate.yml
+      when: IDPType == "azure"
+
+    - name: Get Certificate
+      import_tasks: tasks/idp/get-certificate-azure.yml
+      when: IDPType == "azure"
+
+    - name: Install IDP Azure
+      import_tasks: tasks/idp/idp-config.yml
+      when: IDPType == "azure"
+
+    
+
+
