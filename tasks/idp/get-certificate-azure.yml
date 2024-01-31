@@ -1,0 +1,16 @@
+---
+
+- name: Get Certificate AZURE XML
+  uri:
+    url: "https://login.microsoftonline.com/{{AZURE_TENANT_ID}}/federationmetadata/2007-06/federationmetadata.xml?appid={{app_id}}"
+    method: GET
+    return_content: yes
+  register: res
+  failed_when: res.status != 200 and res.status != 201 and res.status != 204
+
+# - name: Print res
+#   debug:
+#     var: res
+
+- set_fact:
+    cert_xml_azure: "{{res.content | regex_search('<X509Certificate>(.*?)</X509Certificate>') | regex_replace('<.*?>', '')  }}"

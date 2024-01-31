@@ -1,0 +1,17 @@
+---
+
+- name: Make HTTP POST Request to Create Site
+  uri:
+    url: "https://cloudinfra-gw.portal.checkpoint.com/app/harmonyconnect/v2/sites"
+    method: POST
+    headers:
+      Content-Type: "application/json"
+      Authorization: "Bearer {{ token }}"
+    body_format: json
+    body: "{{ payload_create_sites | to_json }}"
+  register: sites
+  failed_when: sites.status != 200 and sites.status != 201 and sites.status != 204
+
+- name: Print Token
+  debug:
+    var: sites.json

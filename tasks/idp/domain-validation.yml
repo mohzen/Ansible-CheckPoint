@@ -1,0 +1,38 @@
+---
+- name: Generate random ID
+  set_fact:
+    # random_id: "{{ 9999999999999999 | random | to_uuid }}"
+    random_id: "1106bec1-86f7-4830-8023-9bc6efe0d811"
+    
+- name: Replace first two characters
+  set_fact:
+    random_id: "{{ random_id[:2] | regex_replace('[0-8]', (9 | random) | string) + random_id[2:] }}"
+    
+- name: Replace last two characters
+  set_fact:
+    random_id: "{{ random_id[:-2] + random_id[-2:] | regex_replace('[0-8]', (9 | random) | string) }}"
+    
+- name: Request ID validation
+  uri:
+    url: "https://cloudinfra-gw-us.portal.checkpoint.com/api/v1/domainValidation"
+    method: POST
+    headers:
+      Content-Type: "application/json"
+      x-access-token: "{{x_token}}"
+      cookie: "{{cookie}}"
+  register: dv
+  failed_when: dv.status != 200 and dv.status != 201 and dv.status != 204
+
+- name: Print dv
+  debug:
+    var: dv.json
+
+- set_fact:
+    validation_uuid: "{{dv.json.data.validationUuid}}"
+
+- set_fact:
+    samlIdentifierUris: "{{dv.json.data.tenantId}}.cloudinfra.checkpoint.com"
+
+- set_fact:
+    samlRedirectUris: "{{url_checkpoint}}/api/saml/sso"
+

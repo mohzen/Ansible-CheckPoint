@@ -1,0 +1,77 @@
+---
+payload_create_site_dtc:
+  operationName: "addSiteMutation"
+  variables:
+    data:
+      name: "{{siteNameDtc}}"
+      description: "{{siteDescDtc}}"
+      type: "dataCenter"
+      routerSubnets: "{{ routerSubnetsDtc.split('\n') if '\n' in routerSubnetsDtc else [routerSubnetsDtc] }}"
+      preSharedKey: "{{sitePreSharedKeyDtc}}"
+      tunnelType: "{{siteTunnelIpDtc}}"
+  query: "mutation addSiteMutation($data: AddSiteInput!) {\n  addSite(data: $data)\n}\n"
+
+  
+payload_list_site_dtc:
+  operationName: sitesListQuery
+  variables: {}
+  query: |
+    query sitesListQuery {
+      sites {
+        id
+        name
+        description
+        state
+        routerExternalIPs
+        latitude
+        longitude
+        address
+        tunnelType
+        routerSubnets
+        location {
+          name
+          __typename
+        }
+        type
+        hubName
+        isDynamicIP
+        interfaceIdentifiers
+        tunnelMonitoring
+        events {
+          id
+          message
+          watched
+          timestamp
+          __typename
+        }
+        __typename
+      }
+    }
+
+payload_get_config_dtc:
+  operationName: siteDownloadInstructionsQuery
+  variables:
+    siteId: "{{dtc.id}}"
+  query: |
+    query siteDownloadInstructionsQuery($siteId: ID!) {
+      siteInstructions(id: $siteId) {
+        devices
+        view
+        __typename
+      }
+      site(id: $siteId) {
+        type
+        tunnelType
+        deviceType
+        __typename
+      }
+    }
+
+payload_delete_site:
+  operationName: deleteSiteMutation
+  variables:
+    siteId: "{{dtc.id}}"
+  query: |
+    mutation deleteSiteMutation($siteId: ID!) {
+      deleteSite(id: $siteId)
+    }

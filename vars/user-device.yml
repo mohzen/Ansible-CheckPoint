@@ -1,0 +1,19 @@
+---
+payload_user_device:
+  operationName: addUsers
+  variables:
+    data:
+      users:
+      - name: "{{UDFullName}}"
+        email: "{{UDEmail}}"
+      withOdo: true
+      withCloudia: true
+  query: |
+    mutation addUsers($data: AddUsersInput!) {
+      addUsers(data: $data) {
+        name
+        email
+        id
+        __typename
+      }
+    }

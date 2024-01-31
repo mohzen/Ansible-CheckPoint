@@ -1,0 +1,24 @@
+---
+
+- name: Find object by name & type
+  set_fact:
+    dtc: "{{ listDtc | json_query('[?'+ keyName +' == `'+ siteNameDelete +'`]') | first }}"
+
+- name: Make HTTP POST Request to Delete Site
+  uri:
+    url: "https://cloudinfra-gw.portal.checkpoint.com/app/gwaas/graphql"
+    method: POST
+    headers:
+      Content-Type: "application/json"
+      x-access-token: "{{x_token}}"
+      cookie: "{{cookie}}"
+    body_format: json
+    body: "{{ payload_delete_site | to_json }}"
+  register: delete_sites
+  failed_when: delete_sites.status != 200 and delete_sites.status != 201 and delete_sites.status != 204
+
+
+- name: Print delete_sites
+  debug:
+    var: delete_sites.json
+

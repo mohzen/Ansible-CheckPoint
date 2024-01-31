@@ -1,0 +1,9 @@
+---
+create_user:
+  accountEnabled: "{{AZUserAccountEnabled}}"
+  displayName: "{{AZUserDisplayName}}"
+  mailNickname: "{{AZUserMailNickname}}"
+  userPrincipalName: "{{AZUserPrincipalName}}"
+  passwordProfile:
+    forceChangePasswordNextSignIn: false
+    password: "{{AZUserPassword}}"

@@ -1,0 +1,29 @@
+---
+
+- name: Find object by name & type
+  set_fact:
+    dtc: "{{ listDtc | json_query('[?'+ keyName +' == `'+ siteNameConnector +'` && type == `'+ typeSite +'`]') | first }}"
+
+- name: Make HTTP POST Request get Config
+  uri:
+    url: "https://cloudinfra-gw.portal.checkpoint.com/app/gwaas/graphql"
+    method: POST
+    headers:
+      Content-Type: "application/json"
+      x-access-token: "{{x_token}}"
+      cookie: "{{cookie}}"
+    body_format: json
+    body: "{{ payload_get_config_dtc | to_json }}"
+  register: config_dtc
+
+# - name: Print config
+#   debug:
+#     var: config_dtc.json.data.siteInstructions
+
+- set_fact:
+    configDtc: "{{config_dtc.json.data.siteInstructions.view | regex_replace('\', '')}}"
+
+# - name: Print secret
+#   debug:
+#     var: configDtc.secret
+

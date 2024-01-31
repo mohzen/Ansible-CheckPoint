@@ -1,0 +1,9 @@
+---
+
+- name: Deploy Connector
+  shell: "curl --silent https://assets.checkpoint.security/connector-scripts/DcConnectorOSValidator.sh | bash -s && docker run -d --name={{dtc.name}} -e ODO_ENV=eu --cap-add=NET_ADMIN --network=host --restart=always --log-opt max-size=1g -e DeviceInterfaceName={{site_interface}} -e Secret={{configDtc.secret}} adanite/tunnel_connector:eu"
+  register: deploy
+
+- name: Print deploy
+  debug:
+    var: deploy

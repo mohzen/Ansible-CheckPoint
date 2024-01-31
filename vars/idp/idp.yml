@@ -1,0 +1,3 @@
+IDPAppID: "849c6c68-acab-4ce3-a59d-f1e53d24d88b" #id azure application on cp
+IDPType: "azure"
+IDPName: "IDP-Azure"

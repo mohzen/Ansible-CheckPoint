@@ -1,0 +1,21 @@
+---
+- name: UPDATE Groups Claim 
+  uri:
+    url: "https://main.iam.ad.ext.azure.com/api/ApplicationSso/{{essentials_object_id}}/UpdateSamlGroupClaim"
+    method: PATCH
+    headers:
+      Content-Type: "application/json"
+      Authorization: "Bearer {{ hidden_token }}"
+      X-Ms-Client-Request-Id: "1592a924-0f3c-4198-a927-8e97496b600d"
+      X-Ms-Client-Session-Id: "04c2184a5a8247fa8fa6e15a3c6c5d9f"
+      X-Ms-Command-Name: "Sso - UpdateSamlGroupClaimsOnAppObject"
+      X-Ms-Effective-Locale: "en.en-us"
+    body_format: json
+    body: "{{ update_group_claim | to_json }}"
+  register: ugc
+  failed_when: ugc.status != 200 and ugc.status != 201 and ugc.status != 204
+
+- name: Print ugc
+  debug:
+    var: ugc.json
+

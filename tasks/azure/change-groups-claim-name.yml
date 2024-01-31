@@ -1,0 +1,21 @@
+---
+- name: Set Groups Claim name 
+  uri:
+    url: "https://main.iam.ad.ext.azure.com/api/ApplicationSso/{{harmony_id}}/FederatedSsoClaimsPolicyV2"
+    method: POST
+    headers:
+      Content-Type: "application/json"
+      Authorization: "Bearer {{ hidden_token }}"
+      X-Ms-Client-Request-Id: "1592a924-0f3c-4198-a927-8e97496b600d"
+      X-Ms-Client-Session-Id: "04c2184a5a8247fa8fa6e15a3c6c5d9f"
+      X-Ms-Command-Name: "Sso - UpdateFederatedSsoClaimsPolicyConfiguration"
+      X-Ms-Effective-Locale: "en.en-us"
+    body_format: json
+    body: "{{ group_claim_name | to_json }}"
+  register: gcn
+  failed_when: gcn.status != 200 and gcn.status != 201 and gcn.status != 204
+
+- name: Print gcn
+  debug:
+    var: gcn.json
+

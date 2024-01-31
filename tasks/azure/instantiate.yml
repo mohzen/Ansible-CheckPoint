@@ -1,0 +1,31 @@
+---
+# 791dc195-a359-4189-85d9-777c153c6312 collect from inspect element when install application on azure directory galery
+- name: Instantiate Harmony Connect
+  uri:
+    url: "https://graph.microsoft.com/v1.0/applicationTemplates/791dc195-a359-4189-85d9-777c153c6312/instantiate"
+    method: POST
+    headers:
+      Content-Type: "application/json"
+      Authorization: "Bearer {{ ad_token }}"
+    body_format: json
+    body: "{{ instantiate | to_json }}"
+  register: instantiate
+  failed_when: instantiate.status != 200 and instantiate.status != 201 and instantiate.status != 204
+
+- name: Print instantiate
+  debug:
+    var: instantiate.json
+
+# same as object id
+- set_fact:
+    harmony_id: "{{instantiate.json.servicePrincipal.id}}"
+
+- set_fact:
+    app_id: "{{instantiate.json.application.appId}}"
+
+- set_fact:
+    essentials_object_id: "{{instantiate.json.application.id}}"
+
+- set_fact:
+    harmony_app_role_id: "{{instantiate.json.servicePrincipal.appRoles[0].id}}"
+

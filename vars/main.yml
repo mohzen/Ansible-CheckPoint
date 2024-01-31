@@ -1,0 +1,61 @@
+---
+# section token
+clientId: eabe1dda18984d7ab7d83bb6ada0bfa5
+secretKey: 7c1a7589c1ee40d48a9b3a0ba1a87d45
+
+# section sites
+siteName: "Marketing Branch Office Ansible-1"
+siteDesc: "Branch Office in Northern California where marketing department resides."
+#siteLocId: "Australia: East=ad65186c-77ba-466b-96dc-da0000000092"
+siteLocId: "ad65186c-77ba-466b-96dc-da0000000092"
+siteAddress: "1640 Riverside Drive, Hill Valley, California"
+siteLat: "32.06966979"
+siteLong: "34.79550173"
+siteDeviceType: "GENERIC-DEVICE"
+siteSubnets: "13.32.8.0/24"
+siteExternalIp: "93.184.216.44"
+sitePreSharedKey: "Ka0sdfghjk123"
+siteInterfaceIdentifier: "mydoma1.hostname.com"
+siteTunnelIp: "IPSEC"
+
+# section sites DTC
+siteNameDtc: "TEST Ansible-2"
+siteDescDtc: "Branch Office in Northern California where marketing department resides."
+sitePreSharedKeyDtc: "0D05sFTpUAo7MfLvtMO3h70xSDpCRo98"
+routerSubnetsDtc: "12.12.12.0/24\n13.13.13.0/24\n14.14.14.0/24"
+siteTunnelIpDtc: "ipsecPreSharedKey"
+typeDtc: "dataCenter"
+
+# section x-token
+email: "bW9oYW5AdGVhbS1pdC5jb20uYXU="
+password: "M1NvZnQ0NDlAbWVs"
+
+# section delete site
+#delete_site_id: "eb08b0a1-cf11-4f5b-a0c2-09467cbd18d0"
+siteNameDelete: "Whatever"
+
+# section connector
+siteNameConnector: 'Melbourne-DC4'
+site_interface: 'ens32'
+
+# query json
+keyName: 'name'
+typeSite: 'dataCenter'
+
+# Tenant ID
+# tenantID: "76ad1553-8241-48ac-b4a0-fa28e72818c8" #RE Pharmacy
+tenantID: "5985d7b4-4382-437e-95e2-7eb95e7f9c9b" #Team IT
+
+# section user & device
+UDFullName: "Mohamadx"
+UDEmail: "mohamadx@team-it.com.au"
+
+# section IDP
+IDPDomainsAZ: "intelliv.onmicrosoft.com"
+
+# azure section
+AZUser: mohan_softnetx@hotmail.com
+AZPassword: Stylus1234
+
+# hiden api user
+AZHiddenAPIUser: mohan_softnetx@hotmail.com

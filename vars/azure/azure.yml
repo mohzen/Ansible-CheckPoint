@@ -1,0 +1,39 @@
+# azure credential
+AZURE_CLIENT_ID: "f032915f-5ebc-46bd-b5b1-dd543a1b5d01"
+AZURE_TENANT_ID: "14b96c07-9c84-4a01-a5af-160eb627e9e6"
+AZURE_CLIENT_SECRET: "ApP8Q~x5x6hMj8lHRT4ESHJtPMw4OVpzxcB~ecQ0"
+
+# temp user
+# user: mohan_softnetx@hotmail.com
+# password: Stylus1234
+
+# create user
+AZUserAccountEnabled: true
+AZUserDisplayName: "Ansible"
+AZUserMailNickname: "Ansible"
+AZUserPrincipalName: "ansible@{{IDPDomainsAZ}}"
+AZUserPassword: "xWwvJ]6NMw+bWH-d"
+#pass : at4hZ7apihMgLfBVRmM1
+
+# create group
+ADGroupDescription: "Ansible Automate group"
+ADGroupDisplayName: "Automate Assist"
+ADGroupTypes: "Unified"
+ADGroupMailEnabled: false
+AZGroupNickName: "ansibleGroup"
+ADGroupSecurityEnabled: false
+
+# Instantiate
+AZInstantiateDisplayName: "Check Point Harmony Connect (Azure AD)"
+
+# set saml url
+samlRedirectUris: "https://vyn.aws.amazon.com/saml"
+samlIdentifierUris: "https://vyn2.aws.amazon.com/saml"
+
+# for testing only
+#group_id: "f30834a9-07cb-472d-a828-ccffdb1a511d"
+# user_id: "cf07ac8a-d7fb-4a64-83eb-3cae6df3bcc0"
+# harmony_id: "54117d94-c16f-454e-b60a-3ab2a988b01b"
+# essentials_object_id: "6a81501a-749d-4f57-8984-ddeaf65139e2"
+# app_id: "53a6ef65-2b34-4a02-8acf-0421f744eab1"
+# harmony_app_role_id: "7a10f7c5-f8b0-48dc-804f-e68f21430ab7"

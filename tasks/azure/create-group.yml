@@ -1,0 +1,20 @@
+---
+- name: Create Azure Group
+  uri:
+    url: "https://graph.microsoft.com/v1.0/{{AZURE_TENANT_ID}}/groups"
+    method: POST
+    headers:
+      Content-Type: "application/json"
+      Authorization: "Bearer {{ ad_token }}"
+    body_format: json
+    body: "{{ create_group | to_json }}"
+  register: group
+  failed_when: group.status != 200 and group.status != 201
+
+- set_fact:
+    group_id: "{{group.json.id}}"
+
+- name: Print group
+  debug:
+    var: group.json
+

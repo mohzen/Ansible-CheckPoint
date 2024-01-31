@@ -1,0 +1,17 @@
+---
+- name: Groups Claim
+  uri:
+    url: "https://graph.microsoft.com/v1.0/applications/{{essentials_object_id}}"
+    method: PATCH
+    headers:
+      Content-Type: "application/json"
+      Authorization: "Bearer {{ ad_token }}"
+    body_format: json
+    body: "{{ groups_claim | to_json }}"
+  register: gc
+  failed_when: gc.status != 200 and gc.status != 201 and gc.status != 204
+
+- name: Print gc
+  debug:
+    var: gc
+

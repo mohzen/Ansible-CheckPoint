@@ -1,0 +1,19 @@
+---
+
+- name: GET Service
+  uri:
+    url: "https://cloudinfra-gw.portal.checkpoint.com/api/v1/tenant/licence/quota"
+    method: GET
+    headers:
+      Content-Type: "application/json"
+      x-access-token: "{{x_token}}"
+      cookie: "{{cookie}}"
+  register: resp
+
+- name: Create output from JSON response
+  set_fact:
+    services: "{{ resp.json.rows }}"
+
+- name: Print list service
+  debug:
+    var: services

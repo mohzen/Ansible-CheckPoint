@@ -1,0 +1,9 @@
+---
+groups_claim:
+  groupMembershipClaims: ALL
+  optionalClaims:
+    saml2Token:
+    - name: groups
+      source: user
+      essential: false
+      additionalProperties: []

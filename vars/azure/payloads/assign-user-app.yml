@@ -1,0 +1,5 @@
+---
+assign_user_app:
+  appRoleId: "{{harmony_app_role_id}}"
+  resourceId: "{{harmony_id}}"
+  principalId: "{{group_id}}"

@@ -1,0 +1,98 @@
+---
+# Note to recreate access token after long time unused(90days) pls flush/delete $HOME/.azure/refresh_token_cache.txt and re run this script!
+# dont forget az login --use-device-code before delete $HOME/.azure/refresh_token_cache.txt
+
+- name: Check file refresh token existence 
+  stat:
+    path:  $HOME/.azure/{{IDPDomainsAZ}}_refresh_token_cache.txt
+  register: rt_facts
+
+- name: Check file azure token existence 
+  stat:
+    path:  $HOME/.azure/msal_token_cache.json
+  register: file_facts
+
+- name: Throw error if file does not exist
+  fail:
+    msg: "File $HOME/.azure/msal_token_cache.json does not exist, Plz Login az login --use-device-code"
+  when: not file_facts.stat.exists 
+
+- name: Read JSON file
+  slurp:
+    src: $HOME/.azure/msal_token_cache.json
+  register: json_content
+  when: not rt_facts.stat.exists 
+
+- name: Parse JSON content
+  set_fact:
+    parsed_data: "{{ json_content.content | b64decode | from_json }}"
+  when: not rt_facts.stat.exists 
+
+# - name: Extract secret based on condition
+#   set_fact:
+#     hidden_token: "{{ parsed_data.AccessToken | dict2items | selectattr('key', 'contains', '74658136-14ec-4630-ad9b-26e160ff0fc6') | map(attribute='value.secret') | first }}"
+
+- name: Display AZHiddenAPIUser
+  debug:
+    var: AZHiddenAPIUser
+
+- name: Display home_account_id
+  debug:
+    var: parsed_data.Account
+
+- name: Extract home_account_id
+  set_fact:
+    home_account_id: "{{ parsed_data.Account | dict2items | selectattr('value.username', 'equalto', AZHiddenAPIUser) | map(attribute='value.home_account_id') | first }}"
+  when: not rt_facts.stat.exists 
+
+- name: Display home_account_id
+  debug:
+    var: home_account_id
+  when: not rt_facts.stat.exists 
+
+- name: Extract refresh token 
+  set_fact:
+    refresh_token: "{{ parsed_data.RefreshToken | dict2items | selectattr('key', 'contains', home_account_id) | map(attribute='value.secret') | first }}"
+  when: not rt_facts.stat.exists 
+
+- name: Create text file for refresh token
+  copy:
+    content: "{{ refresh_token }}"
+    dest: $HOME/.azure/{{IDPDomainsAZ}}_refresh_token_cache.txt
+  when: not rt_facts.stat.exists
+
+- name: Retrieve rt content
+  slurp:
+    src: $HOME/.azure/{{IDPDomainsAZ}}_refresh_token_cache.txt
+  register: rt_content
+
+- name: Extract refresh token 
+  set_fact:
+    refresh_token: "{{ rt_content.content | b64decode }}"
+
+- name: Print azure tenant id
+  debug:
+    var: AZURE_TENANT_ID
+
+- name: Get Access token from refresh token
+  uri:
+    url: "https://login.windows.net/{{AZURE_TENANT_ID}}/oauth2/token"
+    method: POST
+    body_format: form-urlencoded
+    body: "resource=74658136-14ec-4630-ad9b-26e160ff0fc6&grant_type=refresh_token&refresh_token={{refresh_token}}"
+  register: gat
+  failed_when: gat.status != 200 and gat.status != 201 and gat.status != 204
+
+- name: Print gat
+  debug:
+    var: gat.json
+
+- name: set hidden token 
+  set_fact:
+    hidden_token: "{{ gat.json.access_token }}"
+
+- name: Update text file content
+  lineinfile:
+    path: $HOME/.azure/{{IDPDomainsAZ}}_refresh_token_cache.txt
+    regexp: '.*'
+    line: "{{ gat.json.refresh_token }}"

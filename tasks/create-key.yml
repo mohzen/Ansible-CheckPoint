@@ -1,0 +1,21 @@
+---
+
+- name: Create Key
+  uri:
+    url: "https://cloudinfra-gw.portal.checkpoint.com/api/v1/tenant/token"
+    method: POST
+    headers:
+      Content-Type: "application/json"
+      x-access-token: "{{x_token}}"
+      cookie: "{{cookie}}"
+    body_format: json
+    body: "{{ payloadMappings[appName] | to_json }}"
+  register: resp
+
+- name: Create output from JSON response
+  set_fact:
+    key_resp: "{{ resp.json }}"
+
+- name: Print key resp
+  debug:
+    var: key_resp

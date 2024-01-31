@@ -1,0 +1,25 @@
+---
+payload_create_sites:
+  name: "{{siteName}}"
+  description: "{{siteDesc}}"
+  locationId: "{{siteLocId}}"
+  address: "{{siteAddress}}"
+  latitude: "{{siteLat}}"
+  longitude: "{{siteLong}}"
+  deviceType: "{{siteDeviceType}}"
+  subnets:
+  - "{{siteSubnets}}"
+  greConnection:
+    externalIp: "{{siteExternalIp}}"
+  ipsecConnection:
+    isDynamicIp: true
+    isMonitorWithDpd: true
+    staticIpConnection:
+      externalIps:
+      - "{{siteExternalIp}}"
+      preSharedKey: "{{sitePreSharedKey}}"
+    dynamicIpConnection:
+      interfaceIdentifiers:
+      - "{{siteInterfaceIdentifier}}"
+      preSharedKey: "{{sitePreSharedKey}}"
+  tunnelType: "{{siteTunnelIp}}"

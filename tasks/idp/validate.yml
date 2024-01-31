@@ -1,0 +1,23 @@
+---
+
+- name: Validation Domain
+  uri:
+    url: "https://cloudinfra-gw.portal.checkpoint.com/api/v2/idpConfig/domain/{{IDPDomainsAZ}}/validate"
+    method: POST
+    headers:
+      Content-Type: "application/json"
+      x-access-token: "{{x_token}}"
+      cookie: "{{cookie}}"
+      Cache-Control: "no-cache"
+    body_format: json
+    body: "{}"
+  register: vd
+  failed_when: vd.status != 200 and vd.status != 201 and vd.status != 204
+
+- name: Print vd
+  debug:
+    var: vd.json
+
+
+
+

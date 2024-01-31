@@ -1,0 +1,17 @@
+---
+- name: Set SAML URL
+  uri:
+    url: "https://graph.microsoft.com/v1.0/applications/{{essentials_object_id}}"
+    method: PATCH
+    headers:
+      Content-Type: "application/json"
+      Authorization: "Bearer {{ ad_token }}"
+    body_format: json
+    body: "{{ set_saml_url | to_json }}"
+  register: saml
+  failed_when: saml.status != 200 and saml.status != 201 and saml.status != 204
+
+- name: Print saml
+  debug:
+    var: saml
+

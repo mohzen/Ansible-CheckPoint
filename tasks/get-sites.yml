@@ -1,0 +1,14 @@
+---
+
+- name: Make HTTP GET request with bearer token to get sites
+  uri:
+    url: "https://cloudinfra-gw.portal.checkpoint.com/app/harmonyconnect/v2/sites?offset=0&limit=20"
+    method: GET
+    headers:
+      Authorization: "Bearer {{ token }}"
+    return_content: true
+  register: response
+
+- name: Print List Sites
+  debug:
+    var: response.content

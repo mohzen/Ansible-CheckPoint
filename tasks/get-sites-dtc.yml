@@ -1,0 +1,22 @@
+---
+
+- name: GET Sites DTC
+  uri:
+    url: "https://cloudinfra-gw.portal.checkpoint.com/app/gwaas/graphql"
+    method: POST
+    headers:
+      Content-Type: "application/json"
+      x-access-token: "{{x_token}}"
+      cookie: "{{cookie}}"
+    body_format: json
+    body: "{{ payload_list_site_dtc | to_json }}"
+  register: sites
+
+- name: Create output from JSON response
+  set_fact:
+    listDtc: "{{ sites.json.data.sites | json_query('[].{name: name, id: id, type: type}') }}"
+
+- name: Print list DTC
+  debug:
+    var: listDtc
+

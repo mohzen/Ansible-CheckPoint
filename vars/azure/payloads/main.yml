@@ -1,0 +1,7 @@
+# group azure active directory
+ADGroupDescription: "Ansible Automate group"
+ADGroupName: "Automate Assist"
+ADGroupTypes: "Unified"
+ADGroupMailEnabled: "false"
+ADGroupMailNickname: "ansibleGroup"
+ADGroupSecurityEnabled: "false"

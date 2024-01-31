@@ -1,0 +1,17 @@
+---
+- name: Assign user into group
+  uri:
+    url: "https://graph.microsoft.com/v1.0/{{AZURE_TENANT_ID}}/groups/{{group_id}}"
+    method: PATCH
+    headers:
+      Content-Type: "application/json"
+      Authorization: "Bearer {{ ad_token }}"
+    body_format: json
+    body: "{{ assign_user_group | to_json }}"
+  register: ug
+  failed_when: ug.status != 200 and ug.status != 201 and ug.status != 204
+
+- name: Print ug
+  debug:
+    var: ug.json
+

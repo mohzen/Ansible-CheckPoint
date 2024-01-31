@@ -1,0 +1,19 @@
+---
+
+- name: Create User & Device
+  uri:
+    #url: "https://cloudinfra-gw.portal.checkpoint.com/app/gwaas/graphql"
+    url: "https://cloudinfra-gw.portal.checkpoint.com/api/v1/user"
+    method: POST
+    headers:
+      Content-Type: "application/json"
+      x-access-token: "{{x_token}}"
+      cookie: "{{cookie}}"
+    body_format: json
+    body: "{{ payload_user_device | to_json }}"
+  register: ud
+  failed_when: ud.status != 200 and ud.status != 201 and ud.status != 204
+
+- name: Print site
+  debug:
+    var: ud.json

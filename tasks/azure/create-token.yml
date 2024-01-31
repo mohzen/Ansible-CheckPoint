@@ -1,0 +1,21 @@
+---
+- name: Create payload from URL-encoded headers
+  set_fact:
+    payload: "{% for key, value in create_token.items() %}{{ key | urlencode }}={{ value | urlencode }}&{% endfor %}"
+
+- name: Create Token
+  uri:
+    url: "https://login.microsoftonline.com/{{AZURE_TENANT_ID}}/oauth2/v2.0/token"
+    method: POST
+    headers:
+      Content-Type: "application/x-www-form-urlencoded"
+    body: "{{ payload }}"
+  register: http_result
+
+- set_fact:
+    ad_token: "{{http_result.json.access_token}}"
+
+- name: Print ad_token
+  debug:
+    var: ad_token
+

@@ -1,0 +1,90 @@
+---
+apiList:
+  - &app_protect
+    name: 'App Protect'
+    id: 'c9e05ab5-2828-4a4f-abf3-bd0cd7926fc8'
+  - &bank
+    name: 'Bank'
+    id: '688cacd4-79fa-415a-96fc-ec43bac50300'
+  - &cloudinfra_qa_app1
+    name: 'CloudInfra QA App #1'
+    id: '5838d515-b34b-4df5-b391-d787da022ef2'
+  - &data_forwarding
+    name: 'Data Forwarding'
+    id: '5838d515-b34b-4df5-b391-d787da022ef2'
+  - &data_publiser
+    name: 'DataPublisher'
+    id: '1c4bad53-052c-404a-b7b6-f2c168da3683'
+  - &data_tube
+    name: 'DataTube'
+    id: '1c4bad53-052c-404a-b7b6-f2c168da3683'
+  - &dl_paas
+    name: 'DLPaas'
+    id: '960e7104-209a-4a9f-8183-49c1d700ec93'
+  - &dns_guard
+    name: 'DNSGuard'
+    id: '51df39c5-e2cc-4d6f-b5ae-42a2e334620f'
+  - &harmony_connect
+    name: 'Harmony Connect'
+    id: '12345678-6666-1234-1234-123456789123'
+  - &harmony_endpoint
+    name: 'Harmony Endpoint'
+    id: '12345678-8888-1234-1234-123456789123'
+  - &harmony_mobile
+    name: 'Harmony Mobile'
+    id: 'ada79bb1-9264-431c-9a5e-dc90d357b1d2'
+    
+  
+appName: 'Harmony Mobile'
+
+appMappings:
+  'App Protect': *app_protect
+  'Bank': *bank
+  'CloudInfra QA App #1': *cloudinfra_qa_app1
+  'DataPublisher': *data_publiser
+  'DataTube': *data_tube
+  'DLPaas': *dl_paas
+  'DNSGuard': *dns_guard
+  'Harmony Connect': *harmony_connect
+  'Harmony Endpoint': *harmony_endpoint
+  'Harmony Mobile': *harmony_mobile
+
+
+payloadList:
+  - &dns_guard_payload
+    appId: "{{ appMappings[appName].id }}"
+    roles: []
+    role: Admin
+    expiration: '2103-05-30T21:00:00.000Z'
+    description: ''
+  - &harmony_connect_payload
+    appId: "{{ appMappings[appName].id }}"
+    # roles:
+    # - 12345678-1234-1234-1112-123456789125
+    # - 1b411352-c0da-4736-a640-574483e6dccb
+    # - 3b76f2a2-c901-448b-97c4-a551de18747f
+    role: Admin
+    expiration: '2123-05-30T17:00:00.000Z'
+    description: ''
+  - &harmony_endpoint_payload
+    appId: "{{ appMappings[appName].id }}"
+    # roles:
+    #   - 12345678-1234-1234-1112-123456789125
+    role: Admin
+    expiration: '2123-06-29T17:00:00.000Z'
+    description: ''
+  - &harmony_mobile_payload
+    appId: "{{ appMappings[appName].id }}"
+    # roles:
+    # - 12345678-1234-1234-1112-123456789125
+    role: Admin
+    expiration: '2123-06-29T17:00:00.000Z'
+    description: ''
+
+
+payloadMappings:
+  'DNSGuard': *dns_guard_payload
+  'Harmony Connect': *harmony_connect_payload
+  'Harmony Endpoint': *harmony_endpoint_payload
+  'Harmony Mobile': *harmony_mobile_payload
+

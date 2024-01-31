@@ -1,0 +1,22 @@
+---
+
+- name: Validation Saml 
+  uri:
+    url: "https://cloudinfra-gw.portal.checkpoint.com/api/v1/ci-saml/domain/validate"
+    method: POST
+    headers:
+      Content-Type: "application/json"
+      x-access-token: "{{x_token}}"
+      cookie: "{{cookie}}"
+    body_format: json
+    body: '{"domainValidationUUID":"{{validation_uuid}}"}'
+  register: vs
+  failed_when: vs.status != 200 and vs.status != 201 and vs.status != 204
+
+- name: Print vs
+  debug:
+    var: vs.json
+
+
+
+

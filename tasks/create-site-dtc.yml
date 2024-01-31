@@ -1,0 +1,21 @@
+---
+
+- name: Make HTTP POST Request to Create Site
+  uri:
+    url: "https://cloudinfra-gw.portal.checkpoint.com/app/gwaas/graphql"
+    method: POST
+    headers:
+      Content-Type: "application/json"
+      x-access-token: "{{x_token}}"
+      cookie: "{{cookie}}"
+    body_format: json
+    body: "{{ payload_create_site_dtc | to_json }}"
+  register: sites
+
+- name: Print payload
+  debug:
+    var: payload_create_site_dtc
+
+- name: Print site
+  debug:
+    var: sites.json

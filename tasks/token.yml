@@ -1,0 +1,18 @@
+---
+
+- name: Make HTTP POST Request to get Token
+  uri:
+    url: "https://cloudinfra-gw.portal.checkpoint.com/auth/external"
+    method: POST
+    headers:
+      Content-Type: "application/json"
+    body_format: json
+    body: "{{ payload | to_json }}"
+  register: http_result
+
+- set_fact:
+    token: "{{http_result.json.data.token}}"
+
+- name: Print Token
+  debug:
+    var: token

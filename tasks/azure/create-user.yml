@@ -1,0 +1,20 @@
+---
+- name: Create Azure User
+  uri:
+    url: "https://graph.microsoft.com/v1.0/{{AZURE_TENANT_ID}}/users"
+    method: POST
+    headers:
+      Content-Type: "application/json"
+      Authorization: "Bearer {{ ad_token }}"
+    body_format: json
+    body: "{{ create_user | to_json }}"
+  register: user
+  failed_when: user.status != 200 and user.status != 201
+
+- set_fact:
+    user_id: "{{user.json.id}}"
+
+- name: Print user
+  debug:
+    var: user.json
+

@@ -1,0 +1,17 @@
+---
+- name: Assign user into Harmony app
+  uri:
+    url: "https://graph.microsoft.com/v1.0/servicePrincipals/{{harmony_id}}/appRoleAssignedTo"
+    method: POST
+    headers:
+      Content-Type: "application/json"
+      Authorization: "Bearer {{ ad_token }}"
+    body_format: json
+    body: "{{ assign_user_app | to_json }}"
+  register: aua
+  failed_when: aua.status != 200 and aua.status != 201 and aua.status != 204
+
+- name: Print aua
+  debug:
+    var: aua.json
+

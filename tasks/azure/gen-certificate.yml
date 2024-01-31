@@ -1,0 +1,15 @@
+---
+- name: Generate Certificate
+  uri:
+    url: "https://graph.microsoft.com/v1.0/servicePrincipals/{{harmony_id}}/addTokenSigningCertificate"
+    method: POST
+    headers:
+      Content-Type: "application/json"
+      Authorization: "Bearer {{ ad_token }}"
+  register: cert
+  failed_when: cert.status != 200 and cert.status != 201 and cert.status != 204
+
+- name: Print cert
+  debug:
+    var: cert.json
+

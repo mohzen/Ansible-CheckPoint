@@ -1,0 +1,179 @@
+---
+group_claim_name:
+  objectId: "{{harmony_id}}"
+  identifierUris:
+  - "{{samlIdentifierUris}}"
+  certificateNotificationEmail: ''
+  signOnUrl: ''
+  logoutUrl: ''
+  replyUrls:
+  - https://cloudinfra-gw.portal.checkpoint.com/api/saml/sso
+  relayState: ''
+  idpIdentifier: ''
+  idpReplyUrl: ''
+  defaultClaimIssuancePolicy:
+    version: 1
+    defaultTokenType: SAML
+    allowPassThruUsers: 'true'
+    includeBasicClaimSet: 'True'
+    claimsSchema:
+    - samlClaimType: http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier
+      samlNameIdFormat: urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress
+      source: User
+      extensionID:
+      id: userprincipalname
+      value:
+      transformationId:
+      appliesToUserType:
+      memberOf:
+    - samlClaimType: http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname
+      source: User
+      extensionID:
+      id: givenname
+      value:
+      transformationId:
+      appliesToUserType:
+      memberOf:
+    - samlClaimType: http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname
+      source: User
+      extensionID:
+      id: surname
+      value:
+      transformationId:
+      appliesToUserType:
+      memberOf:
+    - samlClaimType: http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress
+      source: User
+      extensionID:
+      id: mail
+      value:
+      transformationId:
+      appliesToUserType:
+      memberOf:
+    - samlClaimType: http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name
+      source: User
+      extensionID:
+      id: userprincipalname
+      value:
+      transformationId:
+      appliesToUserType:
+      memberOf:
+    - jwtClaimType:
+      samlClaimType: groups
+      samlNameIdFormat:
+      spNameQualifier:
+      source: user
+      extensionID:
+      id: groups
+      value:
+      transformationId:
+      appliesToUserType:
+      memberOf: []
+      samlNameFormat:
+    claimsTransformations: []
+    groupFilter:
+    issuerWithApplicationId: false
+    audienceOverride:
+    crossTenantRestrictions: false
+    requireCustomSigningKey: false
+  externalClaimIssuancePolicy:
+  claimNameIdentifier: userprincipalname
+  claimExtensionNameIdentifier:
+  claimMethodNameIdentifier: mail
+  claimMethodDomainName:
+  tokenIssuancePolicy:
+    version: 1
+    signingAlgorithm: http://www.w3.org/2001/04/xmldsig-more#rsa-sha256
+    tokenResponseSigningPolicy: TokenOnly
+    samlTokenVersion: '2.0'
+    emitSamlNameFormat: false
+  tokenIssuancePolicySource: default
+  __ko_mapping__:
+    ignore: []
+    include:
+    - _destroy
+    copy: []
+    observe: []
+    mappedProperties:
+      objectId: true
+      identifierUris: true
+      certificateNotificationEmail: true
+      signOnUrl: true
+      logoutUrl: true
+      replyUrls: true
+      relayState: true
+      idpIdentifier: true
+      idpReplyUrl: true
+      defaultClaimIssuancePolicy.version: true
+      defaultClaimIssuancePolicy.defaultTokenType: true
+      defaultClaimIssuancePolicy.allowPassThruUsers: true
+      defaultClaimIssuancePolicy.includeBasicClaimSet: true
+      defaultClaimIssuancePolicy.claimsSchema[0].samlClaimType: true
+      defaultClaimIssuancePolicy.claimsSchema[0].samlNameIdFormat: true
+      defaultClaimIssuancePolicy.claimsSchema[0].source: true
+      defaultClaimIssuancePolicy.claimsSchema[0].extensionID: true
+      defaultClaimIssuancePolicy.claimsSchema[0].id: true
+      defaultClaimIssuancePolicy.claimsSchema[0].value: true
+      defaultClaimIssuancePolicy.claimsSchema[0].transformationId: true
+      defaultClaimIssuancePolicy.claimsSchema[0].appliesToUserType: true
+      defaultClaimIssuancePolicy.claimsSchema[0].memberOf: true
+      defaultClaimIssuancePolicy.claimsSchema[1].samlClaimType: true
+      defaultClaimIssuancePolicy.claimsSchema[1].source: true
+      defaultClaimIssuancePolicy.claimsSchema[1].extensionID: true
+      defaultClaimIssuancePolicy.claimsSchema[1].id: true
+      defaultClaimIssuancePolicy.claimsSchema[1].value: true
+      defaultClaimIssuancePolicy.claimsSchema[1].transformationId: true
+      defaultClaimIssuancePolicy.claimsSchema[1].appliesToUserType: true
+      defaultClaimIssuancePolicy.claimsSchema[1].memberOf: true
+      defaultClaimIssuancePolicy.claimsSchema[2].samlClaimType: true
+      defaultClaimIssuancePolicy.claimsSchema[2].source: true
+      defaultClaimIssuancePolicy.claimsSchema[2].extensionID: true
+      defaultClaimIssuancePolicy.claimsSchema[2].id: true
+      defaultClaimIssuancePolicy.claimsSchema[2].value: true
+      defaultClaimIssuancePolicy.claimsSchema[2].transformationId: true
+      defaultClaimIssuancePolicy.claimsSchema[2].appliesToUserType: true
+      defaultClaimIssuancePolicy.claimsSchema[2].memberOf: true
+      defaultClaimIssuancePolicy.claimsSchema[3].samlClaimType: true
+      defaultClaimIssuancePolicy.claimsSchema[3].source: true
+      defaultClaimIssuancePolicy.claimsSchema[3].extensionID: true
+      defaultClaimIssuancePolicy.claimsSchema[3].id: true
+      defaultClaimIssuancePolicy.claimsSchema[3].value: true
+      defaultClaimIssuancePolicy.claimsSchema[3].transformationId: true
+      defaultClaimIssuancePolicy.claimsSchema[3].appliesToUserType: true
+      defaultClaimIssuancePolicy.claimsSchema[3].memberOf: true
+      defaultClaimIssuancePolicy.claimsSchema[4].samlClaimType: true
+      defaultClaimIssuancePolicy.claimsSchema[4].source: true
+      defaultClaimIssuancePolicy.claimsSchema[4].extensionID: true
+      defaultClaimIssuancePolicy.claimsSchema[4].id: true
+      defaultClaimIssuancePolicy.claimsSchema[4].value: true
+      defaultClaimIssuancePolicy.claimsSchema[4].transformationId: true
+      defaultClaimIssuancePolicy.claimsSchema[4].appliesToUserType: true
+      defaultClaimIssuancePolicy.claimsSchema[4].memberOf: true
+      defaultClaimIssuancePolicy.claimsSchema: true
+      defaultClaimIssuancePolicy.claimsTransformations: true
+      defaultClaimIssuancePolicy.groupFilter: true
+      defaultClaimIssuancePolicy.issuerWithApplicationId: true
+      defaultClaimIssuancePolicy.audienceOverride: true
+      defaultClaimIssuancePolicy.crossTenantRestrictions: true
+      defaultClaimIssuancePolicy.requireCustomSigningKey: true
+      defaultClaimIssuancePolicy: true
+      externalClaimIssuancePolicy: true
+      claimNameIdentifier: true
+      claimExtensionNameIdentifier: true
+      claimMethodNameIdentifier: true
+      claimMethodDomainName: true
+      tokenIssuancePolicy.version: true
+      tokenIssuancePolicy.signingAlgorithm: true
+      tokenIssuancePolicy.tokenResponseSigningPolicy: true
+      tokenIssuancePolicy.samlTokenVersion: true
+      tokenIssuancePolicy.emitSamlNameFormat: true
+      tokenIssuancePolicy: true
+      tokenIssuancePolicySource: true
+    copiedProperties: {}
+
+update_group_claim:
+  groupMembershipClaims: All
+  groupMembershipClaimsFormat: ''
+  groupMembershipEmitDisplayNameForCloudGroups: false
+  groupMembershipEmitAsRole: false
+  headerBasedAuth: false

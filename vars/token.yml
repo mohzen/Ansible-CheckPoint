@@ -1,0 +1,4 @@
+---
+payload:
+  clientId: "{{clientId}}"
+  accessKey: "{{secretKey}}"

@@ -1,0 +1,17 @@
+---
+
+- name: Update domain settings
+  office365:
+    domain: "{{ domain_name }}"
+    operation: set
+    tenant_id: "{{ tenant_id }}"
+    client_id: "{{ client_id }}"
+    client_secret: "{{ client_secret }}"
+    settings:
+      txt:
+        - value: "3428792842973482942398"
+  register: update_result
+
+- name: Display update result
+  debug:
+    var: update_result

@@ -1,0 +1,5 @@
+---
+payload_x:
+  email: "{{email | b64decode }}"
+  password: "{{password | b64decode }}"
+  captchaKey: null

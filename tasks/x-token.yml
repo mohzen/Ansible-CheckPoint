@@ -1,0 +1,28 @@
+---
+
+- name: Get Balancer
+  uri:
+    url: "https://cloudinfra-gw.portal.checkpoint.com/api/v1/ci-saml/authenticate?email={{email}}&src_app=cloudinfra&sourceProductId=849c6c68-acab-4ce3-a59d-f1e53d24d88b&originalPath=%2Fdashboard%2Fsettings%2Fidentity-access"
+    method: GET
+    return_content: yes
+  register: res
+  failed_when: res.status != 200 and res.status != 201 and res.status != 204
+
+- set_fact:
+    url_checkpoint: "{{res.json.tenantGateway.url}}"
+
+- name: Make HTTP POST Request to get Token
+  uri:
+    url: "https://cloudinfra-gw.portal.checkpoint.com/auth/user"
+    method: POST
+    headers:
+      Content-Type: "application/json"
+    body_format: json
+    body: "{{ payload_x | to_json }}"
+  register: http_result
+
+- set_fact:
+    cookie: "{{http_result.cookies_string}}"
+
+- set_fact:
+    x_token: "{{http_result.json.csrf}}"

@@ -1,0 +1,8 @@
+---
+- name: Stop Connector
+  shell: "docker stop {{dtc.name}} && docker rm {{dtc.name}}"
+  register: stop_connector
+
+- name: Print deploy
+  debug:
+    var: stop_connector

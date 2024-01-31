@@ -1,0 +1,17 @@
+---
+- name: Enable SSO
+  uri:
+    url: "https://graph.microsoft.com/v1.0/servicePrincipals/{{harmony_id}}"
+    method: PATCH
+    headers:
+      Content-Type: "application/json"
+      Authorization: "Bearer {{ ad_token }}"
+    body_format: json
+    body: "{{ enable_sso | to_json }}"
+  register: sso
+  failed_when: sso.status != 200 and sso.status != 201 and sso.status != 204
+
+- name: Print sso
+  debug:
+    var: sso
+

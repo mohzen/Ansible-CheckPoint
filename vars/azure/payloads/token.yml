@@ -1,0 +1,5 @@
+create_token:
+  client_id: "{{AZURE_CLIENT_ID}}"
+  scope: "https://graph.microsoft.com/.default"
+  client_secret: "{{AZURE_CLIENT_SECRET}}"
+  grant_type: "client_credentials"

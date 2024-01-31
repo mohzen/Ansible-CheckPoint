@@ -1,0 +1,19 @@
+---
+
+- name: Create IDP Config SAML
+  uri:
+    url: "https://cloudinfra-gw.portal.checkpoint.com/api/v2/ci-saml/idpConfig"
+    method: POST
+    headers:
+      Content-Type: "application/json"
+      x-access-token: "{{x_token}}"
+      cookie: "{{cookie}}"
+    body_format: json
+    body: "{{ idp_azure | to_json }}"
+  register: idpaz
+  failed_when: idpaz.status != 200 and idpaz.status != 201 and idpaz.status != 204
+
+- name: Print idpaz
+  debug:
+    var: idpaz.json
+

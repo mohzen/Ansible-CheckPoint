@@ -1,0 +1,9 @@
+---
+set_saml_url:
+  web:
+    redirectUris:
+    - "{{samlRedirectUris}}"
+  identifierUris:
+  - "{{samlIdentifierUris}}"
+    
+

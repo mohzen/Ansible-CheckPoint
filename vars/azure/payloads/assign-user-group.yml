@@ -1,0 +1,4 @@
+---
+assign_user_group:
+  members@odata.bind:
+    - https://graph.microsoft.com/v1.0/directoryObjects/{{user_id}}

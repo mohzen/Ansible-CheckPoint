@@ -1,0 +1,9 @@
+---
+create_group:
+  description: "{{ADGroupDescription}}"
+  displayName: "{{ADGroupDisplayName}}"
+  groupTypes:
+    - "{{ADGroupTypes}}"
+  mailEnabled: "{{ADGroupMailEnabled}}"
+  mailNickname: "{{AZGroupNickName}}"
+  securityEnabled: "{{ADGroupSecurityEnabled}}"

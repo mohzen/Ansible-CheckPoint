@@ -1,0 +1,22 @@
+---
+
+- name: Update Active Tenant
+  uri:
+    url: "https://cloudinfra-gw.portal.checkpoint.com/api/v1/auth/updateUserActiveTenant"
+    method: POST
+    headers:
+      Content-Type: "application/json"
+      x-access-token: "{{x_token}}"
+      cookie: "{{cookie}}"
+    body_format: json
+    body: '{"tenantId": "{{tenantID}}"}'
+  register: ti
+  failed_when: ti.status != 200 and ti.status != 201 and ti.status != 204 and ti.status != 302
+
+- name: Print ti
+  debug:
+    var: ti.json
+
+
+
+
