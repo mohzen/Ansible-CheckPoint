@@ -66,18 +66,17 @@
     seconds: 120
   when: aap2fa == true or phone2fa == true
 
-- name: Read file auth2facode
-  shell: cat "{{ auth2facode }}"
-  register: file_content
+- name: Read file content after run apply auth playbook
+  command: cat "{{ auth2facode }}"
+  register: written_file_content
   changed_when: False
-  when: aap2fa == true or phone2fa == true
+
+- name: Print written file content
+  debug:
+    msg: "{{ written_file_content.stdout }}"
 
 - set_fact:
-    code2fa: "{{file_content.stdout}}"
-
-- name: Print code2fa
-  debug:
-    var: code2fa
+    code2fa: "{{written_file_content.stdout}}"
 
 - name: Make HTTP POST to verify 2fa
   uri:
