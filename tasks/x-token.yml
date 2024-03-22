@@ -48,6 +48,17 @@
     state: touch
   when: not file_stat.stat.exists and aap2fa == true or phone2fa == true
 
+- name: Make HTTP POST sms 
+  uri:
+    url: "https://cloudinfra-gw.portal.checkpoint.com/auth/user/2fa/sms"
+    method: POST
+    headers:
+      Content-Type: "application/json"
+    body_format: json
+    body: 
+      to: "{{ phone }}"
+  register: sms_result  
+
 - name: Sleep 1 minute to Wait You executing playbook for input code from app generator or  sms
   ansible.builtin.pause:
     seconds: 180
@@ -76,3 +87,6 @@
     body: 
       token: "{{2facode}}"
   register: http_result
+
+
+
