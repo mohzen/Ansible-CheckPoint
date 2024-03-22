@@ -58,6 +58,7 @@
 - name: Read file content after run apply auth playbook
   command: cat "{{ auth2facode }}"
   register: written_file_content
+  delegate_to: 4.145.88.216
 
 - name: Print written file content
   debug:
