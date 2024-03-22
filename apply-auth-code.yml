@@ -1,0 +1,36 @@
+---
+- hosts: localhost
+  connection: local 
+  gather_facts: false
+  vars: 
+    auth2faToken: null
+  vars_files:
+    - vars/main.yml
+
+  tasks:
+    - name: Check if file exists
+      stat:
+        path: "{{ auth2facode }}"
+      register: file_stat
+
+    - name: Create file if it doesn't exist
+      file:
+        path: "{{ auth2facode }}"
+        state: touch
+      when: not file_stat.stat.exists 
+
+    - name: Put content into file from variable
+      copy:
+        content: "{{ auth2faToken }}"
+        dest: "{{ auth2facode }}"
+
+    - name: Read file content after writing
+      command: cat "{{ auth2facode }}"
+      register: written_file_content
+      changed_when: False
+
+    - name: Print written file content
+      debug:
+        msg: "{{ written_file_content.stdout }}"
+
+
