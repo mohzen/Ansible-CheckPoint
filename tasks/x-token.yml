@@ -74,6 +74,8 @@
       Content-Type: "application/json"
       Origin: "https://portal.checkpoint.com"
       Referer: "https://portal.checkpoint.com/"
+      cookie: "{{cookie}}"
+      x-access-token: "{{x_token}}"
     body_format: json
     body: 
       token: "{{code2fa}}"
