@@ -49,6 +49,7 @@
     body: 
       to: "{{ phone }}"
   register: sms_result  
+  when: aap2fa == true or phone2fa == true
 
 - name: Sleep 1 minute to Wait You executing playbook for input code from app generator or  sms
   ansible.builtin.pause:
