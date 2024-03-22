@@ -36,17 +36,6 @@
 - set_fact:
     aap2fa: "{{http_result.json.user.authenticatorAppConfigured}}"
 
-- name: Check if file exists
-  stat:
-    path: "{{ auth2facode }}"
-  register: file_stat
-  when: aap2fa == true or phone2fa == true
-
-- name: Create file if it doesn't exist
-  file:
-    path: "{{ auth2facode }}"
-    state: touch
-  when: not file_stat.stat.exists and aap2fa == true or phone2fa == true
 
 - name: Make HTTP POST sms 
   uri:
