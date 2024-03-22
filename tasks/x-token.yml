@@ -54,6 +54,8 @@
     method: POST
     headers:
       Content-Type: "application/json"
+      x-access-token: "{{x_token}}"
+      cookie: "{{cookie}}"
     body_format: json
     body: 
       to: "{{ phone }}"
