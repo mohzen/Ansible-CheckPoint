@@ -63,7 +63,7 @@
 
 - name: Sleep 1 minute to Wait You executing playbook for input code from app generator or  sms
   ansible.builtin.pause:
-    seconds: 180
+    seconds: 120
   when: aap2fa == true or phone2fa == true
 
 - name: Read file auth2facode
