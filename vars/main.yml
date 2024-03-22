@@ -29,7 +29,7 @@ typeDtc: "dataCenter"
 # section x-token
 email: "bW9oYW5AdGVhbS1pdC5jb20uYXU="
 password: "M1NvZnQ0NDlAbWVs"
-auth2facode: "/tmp/auth2fa"
+auth2facode: "/var/log/auth2fa"
 
 # section delete site
 #delete_site_id: "eb08b0a1-cf11-4f5b-a0c2-09467cbd18d0"
