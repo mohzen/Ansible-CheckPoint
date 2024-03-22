@@ -72,10 +72,6 @@
   changed_when: False
   when: aap2fa == true or phone2fa == true
 
-- name: Ending the playbook cause the security code not successfull integrated
-  meta: end_play
-  when: file_content.stdout | length == 0
-
 - set_fact:
     2facode: "{{file_content.stdout}}"
 
