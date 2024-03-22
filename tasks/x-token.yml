@@ -50,7 +50,7 @@
       to: "{{ phone }}"
   register: sms_result  
 
-- name: Sleep 2 minute to Wait You executing playbook for input code from app generator or  sms
+- name: Sleep 1 minute to Wait You executing playbook for input code from app generator or  sms
   ansible.builtin.pause:
     seconds: 120
   when: aap2fa == true or phone2fa == true
@@ -72,6 +72,8 @@
     method: POST
     headers:
       Content-Type: "application/json"
+      Origin: "https://portal.checkpoint.com"
+      Referer: "https://portal.checkpoint.com/"
     body_format: json
     body: 
       token: "{{code2fa}}"
