@@ -58,13 +58,16 @@
 - name: Read file content after run apply auth playbook
   command: cat "{{ auth2facode }}"
   register: written_file_content
+  when: aap2fa == true or phone2fa == true
 
 - name: Print written file content
   debug:
     msg: "{{ written_file_content.stdout }}"
+  when: aap2fa == true or phone2fa == true
 
 - set_fact:
     code2fa: "{{written_file_content.stdout}}"
+  when: aap2fa == true or phone2fa == true
 
 - name: Make HTTP POST to verify 2fa
   uri:
@@ -82,6 +85,7 @@
       phone: "{{ phone }}"
       sms: true
   register: http_result
+  when: phone2fa == true
 
 
 
