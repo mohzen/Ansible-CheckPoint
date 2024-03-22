@@ -73,7 +73,11 @@
   when: aap2fa == true or phone2fa == true
 
 - set_fact:
-    2facode: "{{file_content.stdout}}"
+    code2fa: "{{file_content.stdout}}"
+
+- name: Print code2fa
+  debug:
+    var: code2fa
 
 - name: Make HTTP POST to verify 2fa
   uri:
@@ -83,7 +87,7 @@
       Content-Type: "application/json"
     body_format: json
     body: 
-      token: "{{2facode}}"
+      token: "{{code2fa}}"
   register: http_result
 
 
