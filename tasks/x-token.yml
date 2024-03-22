@@ -75,6 +75,8 @@
     body_format: json
     body: 
       token: "{{code2fa}}"
+      phone: "{{ phone }}"
+      sms: true
   register: http_result
 
 
